@@ -221,8 +221,10 @@ def main():
 
     # save_attention_heatmaps(attn_avg, "/content/drive/MyDrive/EfficientAI")
 
-    # pruned_npz_path = create_npz_from_sample_folder('/content/drive/MyDrive/EfficientAI/zero_prune')
-    # unpruned_npz_path = create_npz_from_sample_folder('/content/drive/MyDrive/EfficientAI/GenImages')
+    pruned_npz_path = create_npz_from_sample_folder('path/to/generated_images_npz')
+    unpruned_npz_path = create_npz_from_sample_folder('path/to/image_net_val_images')
+
+    print(compute_fid_metrics('unpruned_npz_path', 'pruned_npz_path'))
 
     # # Example usage
     # compute_fid('/content/drive/MyDrive/EfficientAI/GenImagesPruned.npz', '/content/drive/MyDrive/EfficientAI/VIRTUAL_imagenet256_labeled.npz')

@@ -13,33 +13,6 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
-# def measure_model_size(model):
-#     torch.save(model.state_dict(), "temp_model.pth")
-#     size = os.path.getsize("temp_model.pth") / (1024 ** 2)
-#     os.remove("temp_model.pth")
-#     return size
-
-# def effective_model_size(model):
-#     total = 0
-#     nonzero = 0
-#     for p in model.parameters():
-#         total += p.numel()
-#         nonzero += p.nonzero().size(0)
-#     density = nonzero / total
-#     full_size_mb = measure_model_size(model)
-#     return density * full_size_mb  # Approx effective size
-
-# def measure_inference_time(model, input_tensor, runs=30):
-#     model.eval()
-#     with torch.no_grad():
-#         for _ in range(10):  # warmup
-#             _ = model(input_tensor)
-#         start = time.time()
-#         for _ in range(runs):
-#             _ = model(input_tensor)
-#         end = time.time()
-#     return (end - start) / runs
-
 def plot_weight_distributions(model,
                               layer_types=(torch.nn.Linear, torch.nn.Conv2d),
                               bins=100,
@@ -284,4 +257,7 @@ if __name__=="__main__":
         # schedule=[0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1]
     )
 
-    unpruned_npz_path = create_npz_from_sample_folder('NM_Pruning')
+    pruned_npz_path = create_npz_from_sample_folder('path/to/generated_images_npz')
+    unpruned_npz_path = create_npz_from_sample_folder('path/to/image_net_val_images')
+
+    print(compute_fid_metrics('unpruned_npz_path', 'pruned_npz_path'))
